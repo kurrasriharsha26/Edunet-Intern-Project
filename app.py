@@ -7,12 +7,12 @@ from sklearn.preprocessing import StandardScaler
 import plotly.express as px
 
 # Load the trained model
-model = load_model("first.h5")
+model = load_model(r"C:\Users\Kurra Sriharsha\Downloads\climate.csv.csv")
 
 # Load and preprocess the dataset
 @st.cache_data
 def load_new_data():
-    df = pd.read_csv("2324final.csv", parse_dates=["Datetime"], index_col="Datetime")
+    df = pd.read_csv(r"C:\Users\Kurra Sriharsha\Downloads\climate.csv.csv", parse_dates=["Datetime"], index_col="Datetime")
     return df
 
 # Prepare the data for prediction
