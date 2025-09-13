@@ -1,16 +1,18 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 import plotly.express as px
-from sklearn.preprocessing import StandardScaler
 
-# Load dataset
+# ✅ Load dataset
 @st.cache_data
 def load_data():
-    df = pd.read_csv(r"C:\Users\Kurra Sriharsha\Downloads\climate.csv.csv", parse_dates=["Datetime"], index_col="Datetime")
+    df = pd.read_csv(
+        r"C:\Users\Kurra Sriharsha\Downloads\climate.csv.csv",
+        parse_dates=["Datetime"],
+        index_col="Datetime"
+    )
     return df
 
-# Classify risks and suggest mitigations
+# ✅ Classify risks and suggest mitigations
 def classify_risks_and_mitigations(row):
     heatwave_risk = "High" if row["TempC"] > 40 else "Medium" if row["TempC"] > 30 else "Low"
     coldwave_risk = "High" if row["TempC"] < 12 else "Medium" if row["TempC"] <= 18 else "Low"
@@ -19,13 +21,29 @@ def classify_risks_and_mitigations(row):
 
     strategies = {}
     if heatwave_risk in ['High', 'Medium']:
-        strategies['Heatwave'] = ["Stay hydrated", "Avoid outdoor activities", "Use fans or AC indoors"]
+        strategies['Heatwave'] = [
+            "Stay hydrated",
+            "Avoid outdoor activities",
+            "Use fans or AC indoors"
+        ]
     if coldwave_risk in ['High', 'Medium']:
-        strategies['Coldwave'] = ["Wear warm clothes", "Use heaters", "Limit outdoor exposure"]
+        strategies['Coldwave'] = [
+            "Wear warm clothes",
+            "Use heaters",
+            "Limit outdoor exposure"
+        ]
     if flood_risk in ['High', 'Medium']:
-        strategies['Flood'] = ["Avoid flood-prone areas", "Keep emergency kit ready", "Follow alerts"]
+        strategies['Flood'] = [
+            "Avoid flood-prone areas",
+            "Keep emergency kit ready",
+            "Follow alerts"
+        ]
     if storm_risk in ['High', 'Medium']:
-        strategies['Storm'] = ["Stay indoors", "Secure outdoor items", "Avoid travel during storms"]
+        strategies['Storm'] = [
+            "Stay indoors",
+            "Secure outdoor items",
+            "Avoid travel during storms"
+        ]
 
     return {
         "Heatwave Risk": heatwave_risk,
@@ -35,6 +53,7 @@ def classify_risks_and_mitigations(row):
         "Mitigation Strategies": strategies
     }
 
+# ✅ Display mitigation strategies nicely
 def display_mitigation_strategies(strategies):
     if not strategies:
         st.success("🌿 No immediate risks detected! Enjoy a safe day!")
@@ -45,18 +64,22 @@ def display_mitigation_strategies(strategies):
             for action in actions:
                 st.markdown(f"- {action}")
 
-# Streamlit App
+# ✅ Streamlit App
 def main():
     st.set_page_config(page_title="🌤 Climate Dashboard", layout="wide")
     st.title("🌤 Climate Risk Prediction Dashboard")
 
+    # Load data
     df = load_data()
 
     st.subheader("📊 Dataset Preview")
     st.write(df.head())
 
     # Select a datetime
-    selected_datetime = st.selectbox("Select a Datetime:", df.index.strftime("%Y-%m-%d %H:%M:%S"))
+    selected_datetime = st.selectbox(
+        "Select a Datetime:",
+        df.index.strftime("%Y-%m-%d %H:%M:%S")
+    )
     selected_row = df.loc[pd.to_datetime(selected_datetime)]
 
     # Show selected weather parameters
@@ -81,4 +104,5 @@ def main():
     st.plotly_chart(wind_fig, use_container_width=True)
 
 if __name__ == "__main__":
+    print("✅ Running the NEW Climate Dashboard app...")
     main()
