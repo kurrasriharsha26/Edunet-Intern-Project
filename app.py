@@ -5,11 +5,10 @@ import plotly.express as px
 # ✅ Load dataset
 @st.cache_data
 df = pd.read_csv(
-    'climate.csv',  # Correct the filename if needed
+    'climate.csv',        
     parse_dates=["Datetime"],
     index_col="Datetime"
 )
-    return df
 
 # ✅ Classify risks and suggest mitigations
 def classify_risks_and_mitigations(row):
