@@ -6,7 +6,7 @@ import plotly.express as px
 @st.cache_data
 def load_data():
     df = pd.read_csv(
-        r"C:\Users\Kurra Sriharsha\Downloads\climate.csv.csv",
+        'climate.csv.csv',
         parse_dates=["Datetime"],
         index_col="Datetime"
     )
