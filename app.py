@@ -4,12 +4,11 @@ import plotly.express as px
 
 # ✅ Load dataset
 @st.cache_data
-def load_data():
-    df = pd.read_csv(
-        'climate.csv.csv',
-        parse_dates=["Datetime"],
-        index_col="Datetime"
-    )
+df = pd.read_csv(
+    'climate.csv',  # Correct the filename if needed
+    parse_dates=["Datetime"],
+    index_col="Datetime"
+)
     return df
 
 # ✅ Classify risks and suggest mitigations
