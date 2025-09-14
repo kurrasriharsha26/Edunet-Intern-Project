@@ -6,33 +6,50 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 import joblib
-import base64
+import requests
+from streamlit_lottie import st_lottie
 
 # -------------------------------
-# Set Background Image
+# Animated Gradient Background
 # -------------------------------
-def set_background(image_url):
+def set_animated_background():
     st.markdown(
-        f"""
+        """
         <style>
-        .stApp {{
-            background-image: url("{image_url}");
-            background-attachment: fixed;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-        }}
-        .css-18e3th9 {{
-            background: rgba(0, 0, 0, 0.5); /* dark overlay for readability */
-        }}
+        .stApp {
+            background: linear-gradient(135deg, 
+                                        #1e3c72, 
+                                        #2a5298, 
+                                        #f0f8ff, 
+                                        #6497b1, 
+                                        #3a5683, 
+                                        #1e3c72);
+            background-size: 400% 400%;
+            animation: gradientBG 20s ease-in-out infinite;
+            min-height: 100vh;
+        }
+        @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
         </style>
         """,
         unsafe_allow_html=True
     )
 
-# Example background image (you can replace with your own URL or local image)
-bg_image = "https://images.unsplash.com/photo-1502303756781-0e26bc6dc405?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80"
-set_background(bg_image)
+# -------------------------------
+# Load Lottie Animation
+# -------------------------------
+def load_lottieurl(url: str):
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
+
+# Weather/climate Lottie animation
+climate_lottie_url = "https://assets10.lottiefiles.com/packages/lf20_jmgekfqz.json"
+lottie_climate = load_lottieurl(climate_lottie_url)
 
 # -------------------------------
 # Generate Synthetic Dataset
@@ -89,28 +106,37 @@ def mitigation_recommendations(value, threshold=60):
 # Streamlit App
 # -------------------------------
 st.set_page_config(page_title="AI-Driven Climate Risk Prediction", layout="wide")
-st.title("🌍 AI-Driven Climate Risk Prediction & Mitigation Framework")
+set_animated_background()
+
+# Header with animation
+col1, col2 = st.columns([1, 2])
+with col1:
+    if lottie_climate:
+        st_lottie(lottie_climate, width=250, height=250, loop=True)
+with col2:
+    st.title("🌍 AI-Driven Climate Risk Prediction & Mitigation Framework")
+    st.markdown("### 🔬 Using Machine Learning to Forecast Climate Risk and Suggest Mitigation Strategies")
 
 # Use synthetic dataset
 df = create_synthetic_data()
-st.success("Synthetic dataset generated!")
+st.success("✅ Synthetic dataset generated successfully!")
 st.write("Preview of dataset:", df.head())
 
 # Select target column
-target_col = st.selectbox("Select the target variable for prediction:", df.columns, index=len(df.columns)-1)
+target_col = st.selectbox("📌 Select the target variable for prediction:", df.columns, index=len(df.columns)-1)
 
 # Train model
-if st.button("Train Model"):
+if st.button("🚀 Train Model"):
     with st.spinner("Training model..."):
         model, mse, r2 = train_model(df, target_col)
         st.session_state["model"] = model
-        st.success("Model trained successfully!")
+        st.success("🎯 Model trained successfully!")
         st.write(f"📊 Mean Squared Error: {mse:.2f}")
         st.write(f"📈 R² Score: {r2:.2f}")
 
         # Save model
         joblib.dump(model, "climate_risk_model.joblib")
-        st.info("Model saved as `climate_risk_model.joblib`")
+        st.info("💾 Model saved as `climate_risk_model.joblib`")
 
 # Prediction section
 if "model" in st.session_state:
@@ -123,13 +149,14 @@ if "model" in st.session_state:
             float(df[col].min()), float(df[col].max()), float(df[col].mean())
         )
 
-    if st.button("Predict Climate Risk"):
+    if st.button("🔎 Predict Climate Risk"):
         input_df = pd.DataFrame([input_data])
         prediction = st.session_state["model"].predict(input_df)[0]
-        st.success(f"Predicted {target_col}: {prediction:.2f}")
+        st.success(f"🌡 Predicted {target_col}: {prediction:.2f}")
         st.write(mitigation_recommendations(prediction))
 
 # Visualization
 st.subheader("📊 Data Visualization")
 fig = px.line(df, x=df.index, y=target_col, title=f"{target_col} over Time")
+fig.update_layout(template="plotly_dark")
 st.plotly_chart(fig, use_container_width=True)
