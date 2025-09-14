@@ -182,5 +182,24 @@ if "model" in st.session_state:
 
 # Visualization
 st.subheader("📊 Data Visualization")
-fig = px.line(df, x=df.index, y=target_col, title=f"{target_col} over Time")
+
+fig = px.line(
+    df, 
+    x=df.index, 
+    y=target_col, 
+    title=f"{target_col} over Time",
+    markers=True
+)
+
+# Apply dark theme styling
+fig.update_layout(
+    template="plotly_dark",
+    plot_bgcolor="rgba(0,0,0,0)",   # transparent plot background
+    paper_bgcolor="rgba(0,0,0,0)",  # transparent outer background
+    font=dict(color="white"),
+    title=dict(font=dict(size=22, color="#FFD700"), x=0.5),  # gold title centered
+    xaxis=dict(showgrid=True, gridcolor="rgba(255,255,255,0.2)"),
+    yaxis=dict(showgrid=True, gridcolor="rgba(255,255,255,0.2)")
+)
+
 st.plotly_chart(fig, use_container_width=True)
