@@ -16,7 +16,7 @@ def set_background(image_url):
         f"""
         <style>
         .stApp {{
-            background-image: url("{https://media.licdn.com/dms/image/v2/D5612AQEAPWliFwx6Ug/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1727103899030?e=2147483647&v=beta&t=guFhyMSxbQblaamEe1QKXU8-hqecAr21q83FZNgRhYE}");
+            background-image: url("{image_url}");
             background-attachment: fixed;
             background-size: cover;
             background-repeat: no-repeat;
@@ -30,9 +30,16 @@ def set_background(image_url):
         unsafe_allow_html=True
     )
 
-# Example background image (you can replace with your own URL or local image)
 bg_image = "https://images.unsplash.com/photo-1502303756781-0e26bc6dc405?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80"
 set_background(bg_image)
+
+# -------------------------------
+# Add image (local file or URL)
+# -------------------------------
+st.image("image.jpg", caption="AI-Driven Climate Risk Visualization", use_column_width=True)  # If using your attached file
+
+# Or from an online link
+# st.image("https://path-to-your-image.jpg", caption="AI-Driven Climate Risk Visualization", use_column_width=True)
 
 # -------------------------------
 # Generate Synthetic Dataset
@@ -44,7 +51,6 @@ def create_synthetic_data(n=500):
     rainfall = rng.normal(100, 20, n)         # mm
     humidity = rng.uniform(40, 90, n)         # %
     risk_index = 0.4 * temperature + 0.3 * (rainfall / 10) + 0.3 * humidity + rng.normal(0, 2, n)
-
     df = pd.DataFrame({
         "Datetime": dates,
         "Temperature": temperature,
