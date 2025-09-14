@@ -1,5 +1,8 @@
 AI-Driven-Climate-Risk-Prediction-and-Mitigation-Framework
+
+
 This repository contains the implementation of Edunet foundation AI GreenSkills Internship project, AI-Driven Climate Risk Prediction and Mitigation Framework, which predicts weather conditions and classifies climate risks using AI-powered LSTM models. The project includes a Streamlit web application for real-time predictions and visualizations
+
 
 This project is an **AI-powered climate risk prediction system** that predicts potential climate risks such as temperature extremes, rainfall, and humidity fluctuations, and provides suggested mitigation strategies. It includes a **Streamlit web application** for interactive usage.
 
