@@ -6,6 +6,33 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 import joblib
+import base64
+
+# -------------------------------
+# Set Background Image
+# -------------------------------
+def set_background(image_url):
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background-image: url("{https://media.licdn.com/dms/image/v2/D5612AQEAPWliFwx6Ug/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1727103899030?e=2147483647&v=beta&t=guFhyMSxbQblaamEe1QKXU8-hqecAr21q83FZNgRhYE}");
+            background-attachment: fixed;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }}
+        .css-18e3th9 {{
+            background: rgba(0, 0, 0, 0.5); /* dark overlay for readability */
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+# Example background image (you can replace with your own URL or local image)
+bg_image = "https://images.unsplash.com/photo-1502303756781-0e26bc6dc405?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80"
+set_background(bg_image)
 
 # -------------------------------
 # Generate Synthetic Dataset
