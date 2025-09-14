@@ -8,9 +8,9 @@ from sklearn.metrics import mean_squared_error, r2_score
 import joblib
 
 # -------------------------------
-# Animated Gradient Background
+# Animated Gradient Background (Light Colors)
 # -------------------------------
-def set_gradient_background():
+def set_light_gradient_background():
     st.markdown(
         """
         <style>
@@ -21,15 +21,15 @@ def set_gradient_background():
         }
 
         .stApp {
-            background: linear-gradient(-45deg, #1e3c72, #2a5298, #56ab2f, #a8e063, #f7971e, #ffd200, #f953c6, #b91d73);
+            background: linear-gradient(-45deg, #FFDEE9, #B5FFFC, #FFFFC7, #FFF1B5, #FFE4E1, #E0FFFF, #F0FFF0, #FFDAB9);
             background-size: 400% 400%;
-            animation: gradientAnimation 20s ease infinite;
-            color: white;
+            animation: gradientAnimation 25s ease infinite;
+            color: black;
         }
 
         /* Custom button styling */
         div.stButton > button:first-child {
-            background-color: #ff6f61;
+            background-color: #4CAF50;
             color: white;
             border-radius: 10px;
             padding: 0.6em 1.2em;
@@ -38,7 +38,7 @@ def set_gradient_background():
             transition: 0.3s;
         }
         div.stButton > button:first-child:hover {
-            background-color: #ff3b2e;
+            background-color: #45A049;
             transform: scale(1.05);
         }
 
@@ -51,11 +51,11 @@ def set_gradient_background():
             min-width: 400px;
             border-radius: 10px 10px 0 0;
             overflow: hidden;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
         .styled-table thead tr {
-            background-color: #009879;
-            color: #ffffff;
+            background-color: #A3D2CA;
+            color: #000000;
             text-align: left;
             font-weight: bold;
         }
@@ -64,21 +64,21 @@ def set_gradient_background():
         }
         .styled-table tbody tr {
             border-bottom: 1px solid #dddddd;
-            background-color: #f3f3f3;
+            background-color: #FFFFFF;
             color: black;
         }
         .styled-table tbody tr:nth-of-type(even) {
-            background-color: #e9e9e9;
+            background-color: #F1F1F1;
         }
         .styled-table tbody tr:last-of-type {
-            border-bottom: 2px solid #009879;
+            border-bottom: 2px solid #A3D2CA;
         }
         </style>
         """,
         unsafe_allow_html=True
     )
 
-set_gradient_background()
+set_light_gradient_background()
 
 # -------------------------------
 # Generate Synthetic Dataset
@@ -141,7 +141,7 @@ st.title("🌍 AI-Driven Climate Risk Prediction & Mitigation Framework")
 df = create_synthetic_data()
 st.success("Synthetic dataset generated!")
 
-# Render styled HTML table instead of default DataFrame
+# Render styled HTML table
 st.markdown(
     df.head().to_html(classes="styled-table"),
     unsafe_allow_html=True
@@ -180,7 +180,9 @@ if "model" in st.session_state:
         st.success(f"Predicted {target_col}: {prediction:.2f}")
         st.write(mitigation_recommendations(prediction))
 
-# Visualization
+# -------------------------------
+# Visualization (Light Theme)
+# -------------------------------
 st.subheader("📊 Data Visualization")
 
 fig = px.line(
@@ -191,15 +193,18 @@ fig = px.line(
     markers=True
 )
 
-# Apply dark theme styling
+# Light theme styling
 fig.update_layout(
-    template="plotly_dark",
-    plot_bgcolor="rgba(0,0,0,0)",   # transparent plot background
-    paper_bgcolor="rgba(0,0,0,0)",  # transparent outer background
-    font=dict(color="white"),
-    title=dict(font=dict(size=22, color="#FFD700"), x=0.5),  # gold title centered
-    xaxis=dict(showgrid=True, gridcolor="rgba(255,255,255,0.2)"),
-    yaxis=dict(showgrid=True, gridcolor="rgba(255,255,255,0.2)")
+    template="plotly_white",
+    plot_bgcolor="rgba(255,255,255,0)",   # transparent plot background
+    paper_bgcolor="rgba(255,255,255,0)",  # transparent outer background
+    font=dict(color="black"),
+    title=dict(font=dict(size=22, color="#333333"), x=0.5),
+    xaxis=dict(showgrid=True, gridcolor="rgba(0,0,0,0.1)", color="black"),
+    yaxis=dict(showgrid=True, gridcolor="rgba(0,0,0,0.1)", color="black")
 )
+
+# Line and marker colors
+fig.update_traces(line=dict(color="#FF6F61", width=3), marker=dict(color="#4CAF50", size=8))
 
 st.plotly_chart(fig, use_container_width=True)
