@@ -105,7 +105,7 @@ def mitigation_recommendations(value, threshold=60):
 # -------------------------------
 # Streamlit App
 # -------------------------------
-st.set_page_config(page_title="AI-Driven Climate Risk Prediction", layout="wide")
+st.set_page_config(page_title="AI-Driven Climate Risk Prediction")
 set_animated_background()
 
 # Header with animation
@@ -115,7 +115,7 @@ with col1:
         st_lottie(lottie_climate, width=250, height=250, loop=True)
 with col2:
     st.title("🌍 AI-Driven Climate Risk Prediction & Mitigation Framework")
-    st.markdown("### 🔬 Using Machine Learning to Forecast Climate Risk and Suggest Mitigation Strategies")
+    #st.markdown("### 🔬 Using Machine Learning to Forecast Climate Risk and Suggest Mitigation Strategies")
 
 # Use synthetic dataset
 df = create_synthetic_data()
