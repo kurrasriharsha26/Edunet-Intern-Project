@@ -27,7 +27,6 @@ def set_light_gradient_background():
             color: black;
         }
 
-        /* Custom button styling */
         div.stButton > button:first-child {
             background-color: #4CAF50;
             color: white;
@@ -42,7 +41,6 @@ def set_light_gradient_background():
             transform: scale(1.05);
         }
 
-        /* Table styling */
         .styled-table {
             border-collapse: collapse;
             margin: 15px 0;
@@ -83,9 +81,9 @@ set_light_gradient_background()
 # -------------------------------
 # Generate Synthetic Dataset
 # -------------------------------
-def create_synthetic_data(n=500):
+def create_synthetic_data(n=500, start_date="2025-09-20"):
     rng = np.random.default_rng(42)
-    dates = pd.date_range("2023-01-01", periods=n, freq="D")
+    dates = pd.date_range(start_date, periods=n, freq="D")
     temperature = rng.normal(30, 5, n)        # Celsius
     rainfall = rng.normal(100, 20, n)         # mm
     humidity = rng.uniform(40, 90, n)         # %
@@ -137,9 +135,9 @@ def mitigation_recommendations(value, threshold=60):
 st.set_page_config(page_title="AI-Driven Climate Risk Prediction", layout="wide")
 st.title("🌍 AI-Driven Climate Risk Prediction & Mitigation Framework")
 
-# Use synthetic dataset
-df = create_synthetic_data()
-st.success("Synthetic dataset generated!")
+# Use synthetic dataset starting from 2025-09-20
+df = create_synthetic_data(start_date="2025-09-20")
+st.success("Synthetic dataset generated starting from 2025-09-20!")
 
 # Render styled HTML table
 st.markdown(
@@ -193,18 +191,16 @@ fig = px.line(
     markers=True
 )
 
-# Light theme styling
 fig.update_layout(
     template="plotly_white",
-    plot_bgcolor="rgba(255,255,255,0)",   # transparent plot background
-    paper_bgcolor="rgba(255,255,255,0)",  # transparent outer background
+    plot_bgcolor="rgba(255,255,255,0)",
+    paper_bgcolor="rgba(255,255,255,0)",
     font=dict(color="black"),
     title=dict(font=dict(size=22, color="#333333"), x=0.5),
     xaxis=dict(showgrid=True, gridcolor="rgba(0,0,0,0.1)", color="black"),
     yaxis=dict(showgrid=True, gridcolor="rgba(0,0,0,0.1)", color="black")
 )
 
-# Line and marker colors
 fig.update_traces(line=dict(color="#FF6F61", width=3), marker=dict(color="#4CAF50", size=8))
 
 st.plotly_chart(fig, use_container_width=True)
