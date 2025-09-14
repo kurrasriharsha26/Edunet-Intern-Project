@@ -31,7 +31,7 @@ def set_background(image_url):
     )
 
 # Example background image (you can replace with your own URL or local image)
-bg_image = "https://images.unsplash.com/photo-1502303756781-0e26bc6dc405?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80"
+bg_image = "https://media.licdn.com/dms/image/v2/D5612AQEAPWliFwx6Ug/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1727103899030?e=2147483647&v=beta&t=guFhyMSxbQblaamEe1QKXU8-hqecAr21q83FZNgRhYE"
 set_background(bg_image)
 
 # -------------------------------
