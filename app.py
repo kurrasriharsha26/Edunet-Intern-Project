@@ -15,7 +15,7 @@ st.set_page_config(page_title="AI-Driven Climate Risk Prediction", layout="wide"
 page_bg_img = """
 <style>
 [data-testid="stAppViewContainer"] {
-    background-image: url("https://t3.ftcdn.net/jpg/07/78/46/86/360_F_778468626_LRgRq7B8PnKwxWym03wFuQlXbBofwZPY.jpg"); 
+    background-image: url("https://images.unsplash.com/photo-1502303756785-c2bbada09a0b"); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
