@@ -27,10 +27,51 @@ def set_gradient_background():
             color: white;
         }
 
-        /* Add slight transparency for widgets */
-        .css-18e3th9, .css-1d391kg, .css-1v3fvcr {
-            background: rgba(0, 0, 0, 0.5) !important;
+        /* Custom button styling */
+        div.stButton > button:first-child {
+            background-color: #ff6f61;
+            color: white;
             border-radius: 10px;
+            padding: 0.6em 1.2em;
+            font-weight: bold;
+            border: none;
+            transition: 0.3s;
+        }
+        div.stButton > button:first-child:hover {
+            background-color: #ff3b2e;
+            transform: scale(1.05);
+        }
+
+        /* Table styling */
+        .styled-table {
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 14px;
+            font-family: sans-serif;
+            min-width: 400px;
+            border-radius: 10px 10px 0 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+        .styled-table thead tr {
+            background-color: #009879;
+            color: #ffffff;
+            text-align: left;
+            font-weight: bold;
+        }
+        .styled-table th, .styled-table td {
+            padding: 12px 15px;
+        }
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+            background-color: #f3f3f3;
+            color: black;
+        }
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #e9e9e9;
+        }
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #009879;
         }
         </style>
         """,
@@ -99,7 +140,12 @@ st.title("🌍 AI-Driven Climate Risk Prediction & Mitigation Framework")
 # Use synthetic dataset
 df = create_synthetic_data()
 st.success("Synthetic dataset generated!")
-st.write("Preview of dataset:", df.head())
+
+# Render styled HTML table instead of default DataFrame
+st.markdown(
+    df.head().to_html(classes="styled-table"),
+    unsafe_allow_html=True
+)
 
 # Select target column
 target_col = st.selectbox("Select the target variable for prediction:", df.columns, index=len(df.columns)-1)
