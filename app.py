@@ -11,19 +11,27 @@ import base64
 # -------------------------------
 # Set Background Image
 # -------------------------------
-def set_background(image_url):
+# -------------------------------
+# Set Background with Changing Colors
+# -------------------------------
+def set_background():
     st.markdown(
         f"""
         <style>
         .stApp {{
-            background-image: url("{image_url}");
-            background-attachment: fixed;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
+            background: linear-gradient(-45deg, #1e3c72, #2a5298, #3a7bd5, #00d2ff);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
         }}
+
+        @keyframes gradientBG {{
+            0% {{background-position: 0% 50%;}}
+            50% {{background-position: 100% 50%;}}
+            100% {{background-position: 0% 50%;}}
+        }}
+
         .css-18e3th9 {{
-            background: rgba(0, 0, 0, 0.5); /* dark overlay for readability */
+            background: rgba(0,0,0,0.4); /* overlay for readability */
         }}
         </style>
         """,
