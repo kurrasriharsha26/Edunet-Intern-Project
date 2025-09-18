@@ -77,7 +77,9 @@ def set_light_gradient_background():
         unsafe_allow_html=True
     )
 
+
 set_light_gradient_background()
+
 
 # -------------------------------
 # Generate Synthetic Dataset
@@ -88,7 +90,12 @@ def create_synthetic_data(n=500, start_date="2025-09-20"):
     temperature = rng.normal(30, 5, n)        # Celsius
     rainfall = rng.normal(100, 20, n)         # mm
     humidity = rng.uniform(40, 90, n)         # %
-    risk_index = 0.4 * temperature + 0.3 * (rainfall / 10) + 0.3 * humidity + rng.normal(0, 2, n)
+    risk_index = (
+        0.4 * temperature
+        + 0.3 * (rainfall / 10)
+        + 0.3 * humidity
+        + rng.normal(0, 2, n)
+    )
 
     df = pd.DataFrame({
         "Datetime": dates,
@@ -99,6 +106,7 @@ def create_synthetic_data(n=500, start_date="2025-09-20"):
     })
     df.set_index("Datetime", inplace=True)
     return df
+
 
 # -------------------------------
 # Train Model
@@ -121,6 +129,7 @@ def train_model(df, target_col):
 
     return model, mse, r2
 
+
 # -------------------------------
 # Mitigation Recommendations
 # -------------------------------
@@ -129,6 +138,7 @@ def mitigation_recommendations(value, threshold=60):
         return "⚠️ High climate risk detected. Suggested actions: Reduce emissions, improve drainage, plant more trees."
     else:
         return "✅ Climate risk is under control. Continue monitoring."
+
 
 # -------------------------------
 # Streamlit App
@@ -147,7 +157,11 @@ st.markdown(
 )
 
 # Select target column
-target_col = st.selectbox("Select the target variable for prediction:", df.columns, index=len(df.columns)-1)
+target_col = st.selectbox(
+    "Select the target variable for prediction:",
+    df.columns,
+    index=len(df.columns) - 1
+)
 
 # Train model
 if st.button("Train Model"):
@@ -185,9 +199,9 @@ if "model" in st.session_state:
 st.subheader("📊 Data Visualization")
 
 fig = px.line(
-    df, 
-    x=df.index, 
-    y=target_col, 
+    df,
+    x=df.index,
+    y=target_col,
     title=f"{target_col} over Time",
     markers=True
 )
@@ -202,6 +216,9 @@ fig.update_layout(
     yaxis=dict(showgrid=True, gridcolor="rgba(0,0,0,0.1)", color="black")
 )
 
-fig.update_traces(line=dict(color="#FF6F61", width=3), marker=dict(color="#4CAF50", size=8))
+fig.update_traces(
+    line=dict(color="#FF6F61", width=3),
+    marker=dict(color="#4CAF50", size=8)
+)
 
 st.plotly_chart(fig, use_container_width=True)
